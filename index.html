@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atles físic – Geografia 1r ESO</title>
+<style>
+:root{--bg:#f3f5f7;--panel:#fff;--ink:#1b2430;--mut:#5b6777;--line:#d5dce5;--acc:#0f766e;--onacc:#fff;--gold:#f59e0b;--bar:#dbe3ec;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1320;--panel:#152033;--ink:#e8eef7;--mut:#9fb0c6;--line:#2b3c57;--acc:#2dd4bf;--onacc:#052e2b;--bar:#2b3c57}}
+:root[data-theme="dark"]{--bg:#0c1320;--panel:#152033;--ink:#e8eef7;--mut:#9fb0c6;--line:#2b3c57;--acc:#2dd4bf;--onacc:#052e2b;--bar:#2b3c57}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{max-width:1100px;margin:0 auto;padding:12px}
+h1{font-size:20px;margin:6px 0;font-weight:700}
+h1 span{color:var(--mut);font-weight:500;font-size:14px;margin-left:8px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+button,select{font:inherit;background:var(--acc);color:var(--onacc);border:0;border-radius:10px;padding:9px 16px;cursor:pointer;margin:4px 6px 4px 0;font-weight:600}
+select{background:var(--panel);color:var(--ink);border:1px solid var(--line);font-weight:500}
+button:active{transform:translateY(1px)}
+button:disabled{opacity:.5;cursor:default}
+.hud{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;align-items:center}
+.hud b{font-size:17px}
+.lab{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;display:block}
+.bar{height:10px;border-radius:6px;background:var(--bar);overflow:hidden}
+.bar i{display:block;height:100%;background:#22a06b;transition:width .3s,background .3s}
+#tb{background:#3b82f6;transition:none;margin:8px 0}
+.big{font-size:19px;font-weight:700;margin:2px 0}
+.gold{background:var(--gold);color:#1b2430;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:700;margin-left:8px;vertical-align:middle}
+.pen{display:inline-block;padding:2px 10px;border-radius:999px;color:#fff;font-size:12px;margin-top:4px}
+.pn{background:#111}.pb{background:#1d4ed8}
+.mapwrap{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#a9d3ef;line-height:0}
+svg{width:100%;display:block;margin:0 auto;cursor:crosshair;touch-action:none;user-select:none;aspect-ratio:1.4}
+#base path{fill:#cfe3b0;stroke:#b9d09a;stroke-width:.6;vector-effect:non-scaling-stroke}
+.rv path{stroke:#3f8fd6;stroke-width:1.3;vector-effect:non-scaling-stroke}
+.lk{fill:#8cc3ea;stroke:#3f8fd6;stroke-width:.6;vector-effect:non-scaling-stroke}
+#pk path{fill:#7c2d12;stroke:#fff;stroke-width:1;vector-effect:non-scaling-stroke;pointer-events:none}
+.tg{fill:#fde047;fill-opacity:.45;stroke:#dc2626;stroke-width:2;stroke-dasharray:6 4;vector-effect:non-scaling-stroke}
+.zc{position:absolute;right:8px;top:8px;display:flex;flex-direction:column;line-height:1}
+.zc button{padding:7px 11px;margin:2px;font-size:16px;background:var(--panel);color:var(--ink);border:1px solid var(--line)}
+.opts button{display:block;width:100%;text-align:left;background:var(--panel);color:var(--ink);border:1px solid var(--line);font-weight:500}
+.opts button:hover:not(:disabled){border-color:var(--acc)}
+ul{padding-left:20px}
+.cap{font-size:26px;letter-spacing:6px}
+small,.mut{color:var(--mut);font-size:12px}
+.leg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--mut);margin-top:6px}
+.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px;border:1px solid rgba(0,0,0,.2)}
+</style>
+</head>
+<body>
+<div id="app">
+<h1>Atles físic<span>Geografia · 1r ESO</span></h1>
+
+<section id="s-start" class="box">
+  <p class="big">Situa’l al mapa físic!</p>
+  <p>T’anirem demanant elements del mapa. Clica on creus que són. <b>Arrossega</b> per moure el mapa i fes <b>zoom</b> amb la rodeta, pessigant amb dos dits o amb els botons +/−. Un clic sense arrossegar és la teva resposta.</p>
+  <ul>
+    <li>Fins a 12 preguntes i 5 vides.</li>
+    <li>100 punts per encert, més un bonus de velocitat (10 s) i un de punteria.</li>
+    <li>Ratxa: ×1,5 cada 3 encerts seguits. Les preguntes ★ brillants valen doble.</li>
+    <li>Si falles, tens una pregunta de rebot per recuperar la vida.</li>
+    <li>5 encerts seguits = una vida extra.</li>
+  </ul>
+  <div class="leg"><span><i style="background:#cfe3b0"></i>plana</span><span><i style="background:#d9c06b"></i>altiplà</span><span><i style="background:#eedfa8"></i>desert</span><span><i style="background:#8d6038"></i>muntanya</span><span><i style="background:#7c2d12;clip-path:polygon(50% 0,100% 100%,0 100%)"></i>cim</span><span><i style="background:#fff"></i>gel</span><span><i style="background:#3f8fd6"></i>riu</span></div>
+  <p>Zona a practicar: <select id="reg"></select></p>
+  <button id="go">Començar</button>
+  <p class="mut" id="best"></p>
+</section>
+
+<section id="s-game" hidden>
+  <div class="box hud">
+    <div><span class="lab">Punts</span><b id="sc">0</b></div>
+    <div><span class="lab">Ratxa</span><b id="cb">×1</b></div>
+    <div><span class="lab">Pregunta</span><b id="nq">1/12</b></div>
+    <div><span class="lab">Vides <span id="hpn"></span></span><div class="bar"><i id="hp"></i></div></div>
+  </div>
+  <div class="box" id="q"></div>
+  <div class="bar"><i id="tb" style="width:100%"></i></div>
+  <div class="mapwrap">
+    <svg id="map" viewBox="0 0 100 70"></svg>
+    <div class="zc"><button id="zi" title="Apropa">+</button><button id="zo" title="Allunya">−</button><button id="zr" title="Mapamundi sencer">⌂</button></div>
+  </div>
+  <div class="box" id="fb" hidden>
+    <div id="msg"></div>
+    <div id="rb" class="opts"></div>
+    <button id="nx" hidden>Següent</button>
+  </div>
+  <p class="mut">Dades del mapa: amCharts (amcharts.com). Relleu i rius simplificats.</p>
+</section>
+
+<section id="s-end" class="box" hidden></section>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const shuf=a=>[...a].sort(()=>Math.random()-.5);
+const NMAX=12;
+// [nom, tipus, bolígraf(n=terra/b=aigua), punts [lon,lat], radi, pregunta de rebot, correcta, errada1, errada2]
+const RAW=[
+["oceà Atlàntic","oceà","b",[[-35,25],[-25,-20]],14,"Entre quins continents és l’Atlàntic?","Amèrica i Europa-Àfrica","Àsia i Oceania","Àfrica i Antàrtida"],
+["oceà Pacífic","oceà","b",[[-140,0],[-150,25],[170,5],[-120,-30]],16,"Quin és l’oceà més gran?","Pacífic","Atlàntic","Índic"],
+["oceà Índic","oceà","b",[[75,-15],[65,-30]],13,"Quin oceà banya l’Índia?","Índic","Atlàntic","Àrtic"],
+["oceà Glacial Àrtic","oceà","b",[[-130,77],[130,80],[40,80]],6,"Quin oceà és al voltant del Pol Nord?","Glacial Àrtic","Índic","Pacífic"],
+["oceà Glacial Antàrtic","oceà","b",[[0,-62],[100,-62],[-130,-62]],4,"Quin oceà envolta l’Antàrtida?","Glacial Antàrtic","Glacial Àrtic","Atlàntic"],
+["Golf de Biscaia","golf","b",[[-4,45.5]],2.5,"Quins països banya el golf de Biscaia?","França i Espanya","Itàlia i Grècia","Alemanya i Polònia"],
+["Montblanc","cim","n",[[6.9,45.8]],2,"El Montblanc és el cim més alt de…","Els Alps","Els Pirineus","Els Carpats"],
+["Elbrus","cim","n",[[42.4,43.4]],2,"L’Elbrus és el cim més alt de la serralada…","Caucas","Alps","Urals"],
+["Alps","serralada","n",[[7,46],[11,46.8],[14,47]],2.5,"Quin és el cim més alt dels Alps?","Montblanc","Everest","Aneto"],
+["Pirineus","serralada","n",[[-1.5,42.8],[0.7,42.7],[2.5,42.5]],1.8,"Quin és el cim més alt dels Pirineus?","Aneto","Montblanc","Everest"],
+["Urals","serralada","n",[[59,60],[60,55],[59,66]],3,"Els Urals separen Europa i…","Àsia","Àfrica","Amèrica"],
+["Balcans","serralada","n",[[24,42.5],[20,43],[27,42.7]],3,"Els Balcans són a la península…","Balcànica","Ibèrica","Escandinava"],
+["Carpats","serralada","n",[[24,48],[25,46],[21,48.5]],2.5,"Quin país europeu travessen els Carpats?","Romania","Portugal","Irlanda"],
+["Caucas","serralada","n",[[44,42.5],[47,42],[41,43.5]],2.5,"Entre quins dos mars és el Caucas?","Negre i Caspi","Roig i Mort","Bàltic i del Nord"],
+["Gran planura central","plana","n",[[20,52],[30,53],[10,52]],5,"Una plana és un relleu…","Pla i poc elevat","Molt alt i punxegut","Ple d’aigua"],
+["Golf de Bengala","golf","b",[[88,15]],6,"Quin oceà forma el golf de Bengala?","Índic","Atlàntic","Pacífic"],
+["Estret de Bering","estret","b",[[-168.5,66],[190,66]],3,"L’estret de Bering separa Àsia i…","Amèrica","Àfrica","Oceania"],
+["Everest","cim","n",[[86.9,28]],1.8,"L’Everest és a la serralada…","Himàlaia","Andes","Alps"],
+["Serralada de l’Himàlaia","serralada","n",[[78,33],[85,28.2],[92,28]],3.5,"Quin cim famós és a l’Himàlaia?","Everest","Aconcagua","Kilimanjaro"],
+["Altiplà del Tibet","altiplà","n",[[89,32]],6,"Un altiplà és una zona…","Plana i elevada","Plana i baixa","Muntanyosa i baixa"],
+["Plana de la Sibèria","plana","n",[[75,62],[82,58]],6,"Quin clima té Sibèria?","Molt fred","Tropical","Desèrtic"],
+["Golf de Guinea","golf","b",[[3,3]],4,"Quin oceà banya el golf de Guinea?","Atlàntic","Índic","Pacífic"],
+["Cap de Bona Esperança","cap","n",[[18.5,-34.4]],2.5,"El cap de Bona Esperança és al sud d’…","Àfrica","Àsia","Austràlia"],
+["Kilimanjaro","cim","n",[[37.4,-3.1]],2,"El Kilimanjaro és el cim més alt d’…","Àfrica","Europa","Àsia"],
+["Atles","serralada","n",[[-6,32],[0,34.5],[6,35.5]],2.5,"A quin continent és l’Atles?","Àfrica","Amèrica","Europa"],
+["Desert del Sahara","desert","n",[[10,23],[0,22],[25,24]],9,"Quin clima té el Sàhara?","Àrid","Polar","Equatorial"],
+["Vall del Rift","vall","n",[[36,5],[34,-5],[38,12]],4,"A quin continent és la vall del Rift?","Àfrica","Àsia","Europa"],
+["Golf de Mèxic","golf","b",[[-90,25]],5,"Quin país és al nord del golf de Mèxic?","Estats Units","Argentina","Xile"],
+["Golf d’Alaska","golf","b",[[-145,58]],4,"Alaska pertany a…","Estats Units","Canadà","Rússia"],
+["Golf d’Arica","golf","b",[[-72,-19]],3,"El golf d’Arica és a la costa de l’oceà…","Pacífic","Atlàntic","Índic"],
+["Estret de Magallanes","estret","b",[[-70,-53.2]],2.5,"Qui va navegar per primer cop aquest estret?","Magallanes","Colom","Marco Polo"],
+["McKinley-Denali","cim","n",[[-151,63]],2.5,"El Denali és el cim més alt d’Amèrica del…","Nord","Sud","Centre"],
+["Muntanyes Rocalloses","serralada","n",[[-110,45],[-118,55],[-107,38]],4,"Les Rocalloses són a Amèrica del…","Nord","Sud","Centre"],
+["Grans planes","plana","n",[[-100,42],[-100,35]],6,"Quin riu drena les Grans Planes?","Mississipí","Nil","Amazones"],
+["Aconcagua","cim","n",[[-70,-32.7]],2,"L’Aconcagua és el cim més alt d’Amèrica del…","Sud","Nord","Centre"],
+["Serralada dels Andes","serralada","n",[[-70,-20],[-72,-35],[-75,-5]],3,"Quin és el cim més alt dels Andes?","Aconcagua","Everest","Denali"],
+["Altiplà de Mato Grosso","altiplà","n",[[-55,-15]],5,"Mato Grosso és a Amèrica del Sud, a…","Brasil","Mèxic","Canadà"],
+["Gran Badia australiana","badia","b",[[133,-34]],4,"La Gran Badia és a la costa sud d’…","Austràlia","Nova Guinea","Antàrtida"],
+["Mont Wilhelm","cim","n",[[145,-5.8]],2,"El mont Wilhelm és a Papua Nova Guinea, a…","Oceania","Àfrica","Europa"]
+];
+const REG=["Oceans","Europa","Àsia","Àfrica","Amèrica","Oceania"],CNT=[5,10,6,6,10,2];
+const ITEMS=[];{let i=0;CNT.forEach((n,g)=>{for(let j=0;j<n;j++){const r=RAW[i++];ITEMS.push({n:r[0],k:r[1],ink:r[2],p:r[3],r:r[4],q:[r[5],r[6],r[7],r[8]],g:REG[g]})}})}
+$("#reg").innerHTML='<option value="">Tot (39 elements)</option>'+REG.map(g=>`<option>${g}</option>`).join("");
+
+
+const E=["🧭","🗺️","⛰️","🌋","🏔️","🌊","🏜️","🏝️","🌍","🌏","🌎","🛶"];
+const OK=["Crack! Això és un encert de llibre!","Mapamundi tens al cap!","Espectacular! Magallanes t’enviaria un CV.","Boom! Això sí que és tenir sentit de l’orientació.","Ets un GPS amb cames!"];
+const MISS=["Això és un mapa, no un dibuix abstracte, eh?","Has clicat amb els ulls tancats o és estratègia?","Almenys has encertat el planeta. Ja és molt.","Colom també es va equivocar… però va descobrir Amèrica. Tu només has descobert l’error.","El GPS del teu cervell està «recalculant ruta»…","Aquest clic ha estat valent. Incorrecte, però valent.","Magallanes va donar la volta al món i tu no trobes això?","Aquest clic és tan lluny que necessita passaport.","La brúixola s’ha desmaiat.","Hem descobert un nou continent: l’Atlàntida! Bé, no. És un error."];
+const NEAR=["Uf, per un pèl! Una mica més a prop i hauria colat.","Gairebé! El teu clic i la resposta es van creuar pel carrer.","Tan a prop que fins i tot el mapa t’ha fet pena."];
+const RBBAD=["Rebot fallat. Això va de mal en pitjor, campió!","Ni de rebot! Això ja és talent.","Tranquil·litat, el llibre de text també et vol… però no t’espera."];
+
+
+const LAND=["-168,66 -156,71 -125,70 -95,72 -80,70 -62,60 -55,52 -67,44 -76,35 -81,25 -90,29 -97,26 -97,18 -88,16 -83,10 -77,8 -80,7 -86,11 -95,16 -106,23 -112,30 -117,32 -124,40 -125,49 -135,58 -150,60 -165,60",
+"-73,78 -55,82 -25,82 -20,72 -43,60 -55,66",
+"-78,8 -72,12 -62,10 -50,2 -35,-5 -39,-15 -48,-26 -58,-38 -65,-42 -68,-52 -72,-54 -75,-47 -73,-37 -71,-20 -76,-14 -81,-5 -80,0",
+"-10,36 -9,43 -1,46 -4,48 2,51 8,54 8,57 5,62 14,68 25,71 40,68 45,68 60,68 60,50 55,47 47,45 38,46 30,46 28,44 28,41 24,38 18,40 12,38 10,44 3,43 -1,37 -6,36",
+"-5,50 1,51 0,54 -3,58 -6,56","-24,64 -14,64 -14,66 -22,66",
+"-17,21 -10,30 -6,36 10,37 20,32 32,31 34,27 38,18 43,12 51,12 41,-2 40,-15 35,-25 20,-35 12,-17 9,-1 5,5 -8,4 -17,14",
+"49,-12 50,-16 47,-25 44,-23 44,-17",
+"60,68 80,73 110,77 140,72 180,68 170,60 156,51 143,53 135,43 129,35 122,30 120,22 108,18 106,10 100,13 103,1 98,8 92,20 80,10 73,20 67,25 57,25 59,22 52,16 43,13 39,21 35,28 33,31 36,36 26,40 28,41 36,41 47,42 55,47 60,50",
+"130,32 135,34 140,36 142,41 140,40 136,36",
+"114,-22 122,-18 130,-12 142,-11 146,-19 153,-27 150,-37 140,-38 131,-31 115,-34",
+"131,-1 141,-3 150,-10 141,-9 135,-4",
+"-180,-72 -90,-73 0,-70 90,-67 180,-72 180,-90 -180,-90"];
+
+
+// ---- relleu (lon,lat) ----
+const MT=["6,44 7,46 10,46.6 13,47 16,47.5","-2,43 0.5,42.7 3,42.4","8,44.5 12,43.5 15,41 16,39","18,49.2 22,49.3 25,48 26,46 24,45.3 22,45.2","19,43 22,43 25,42.8 28,42.8","14,45.5 18,43.5 20,42","37,44.5 40,43.5 44,42.5 48,41.5","59,69 60,64 59,58 58,54 58,51","6,60 10,64 15,67 20,69","-9,31 -5,32 0,34 5,35.5 10,36","28,-26 29,-29 27,-31","44,37 47,34 50,31 54,28","30,37 35,37 40,38","49,37 54,36.5 58,37","68,35 71,36.5 73,38.5","74,36 77,35.5","73,35 78,32.5 84,28.5 88,27.8 93,28 97,28.5","76,36 85,36 93,35.5 100,34.5","70,41 76,42 82,43 87,43.5","84,50 90,49 96,50","73,20 74,15 77,9","145,-14 149,-22 151,-28 149,-36 146,-38","141,-4.5 145,-6 148,-6.5","168,-45 170,-43.5 172,-42","-114,60 -115,53 -112,47 -108,40 -106,35","-122,49 -121,44 -120,38 -117,34","-155,62 -150,63 -145,62.5","-135,58 -128,54","-84,34 -80,37 -76,41 -72,44","-108,30 -105,25 -100,19 -98,17","-73,10 -76,5 -78,0 -77,-8 -71,-15 -69,-22 -70,-30 -71,-38 -72,-46 -73,-52"];
+const PL=[[89,32,13,5],[55,33,8,4],[34,39,6,2.5],[77,17,6,5],[100,46,12,4],[38,9,5,5],[32,-6,7,9],[26,-28,6,5],[-110,38,6,5],[-102,23,5,5],[-68,-19,3,6],[-47,-15,8,8],[-55,-15,6,4],[-62,5,4,3],[105,66,14,6],[15,63,4,6],[-4,40.5,4,2.5],[3,45,2,2],[104,26,5,3]];
+const DE=[[10,22,24,7],[-5,21,10,5],[26,24,8,6],[47,24,10,8],[57,32,6,4],[71,27,4,4],[83,39,6,3],[105,43,12,4],[21,-24,6,7],[133,-25,14,8],[-70,-23,2,5],[-68,-42,4,7],[-114,34,5,5],[58,40,6,3]];
+const IC=[[-40,73,14,9]];
+const DEC=[[76.5,35.9],[0.66,42.6],[-3.3,37.05],[15,37.7],[-16.6,28.3],[22.35,40.1],[37.3,-0.15],[-7.9,31.06],[-140.4,60.6],[-98.6,19],[-78.8,-1.5],[-68.5,-27.1],[-73.1,-49.3],[148.3,-36.5],[138.7,35.4],[44.3,39.7],[52.1,35.95],[160.6,56.1],[86.6,49.8],[170.2,-43.6]];
+let PKE=[];
+const RV=["31,31.5 31,26 33,22 33,16 31,10 31,4 32,0.5","-50,-1 -55,-2.5 -60,-3.3 -67,-3.5 -73,-4.5 -75,-5","-90,29 -91,33 -90,37 -91,42 -93,45","-90,38 -96,41 -104,45 -111,47","121.5,31.5 115,30 111,30.5 107,29.5 104,28 100,27 97,33","119,37.5 114,35 110,35 108,38 104,36 100,35.5","89,22 86,25.5 82,26 78,29","67,24 68,28 71,30 74,33 77,35","29.7,45 26,44 22,44.5 19,45.5 16,48 13,48.5 9,48.2","4.5,52 7,51 8,49 7.6,47.6 9,47","48,46 46,49 44,52 42,56 38,57 33,57","69,66.5 69,62 73,58 80,54","83,72 85,66 88,58 92,52","127,72.5 127,66 128,62 108,54","12,-6 16,-4 18,0 24,2 26,0.5 26,-5 27,-9","5.5,4.5 6,8 5,10 0,14 -4,16 -8,12 -10.5,10","37,-18.5 33,-16 28,-17 24,-14 23,-12","139.5,-35.5 141,-34 144,-35.5 147,-36","-58,-34 -58,-30 -57,-26 -54,-25 -50,-21 -47,-20","106.5,10 105,12 105.5,16 102,18 101,21.5 99,25 98,28","48,30 44,33 43,36 41,38","47,31 44,32 40,35 38,37","-164,62.5 -155,65 -146,65 -139,63 -135,60","-135,69 -129,66 -124,62","-61,49 -68,48.5 -72,46.5 -76,44.5"];
+const LK=[[33,-1.2,1.6,1.6],[29.8,-6,.5,3],[108,53.5,.8,3],[-87.5,47.7,3,1.2],[-87,43.8,1,2.2],[-82,45,2,1.5],[-81,42.2,2,.6]];
+const ANT="-180,-72 -170,-76 -150,-77.5 -120,-74 -100,-72 -75,-72 -62,-65 -57,-63.5 -60,-70 -45,-78 -20,-72 10,-70 40,-68 70,-68 90,-66 120,-66.5 150,-69 165,-72 170,-77 190.5,-76 190.5,-84 -180,-84";
+
+// ---- mapa i projecció (Mercator) ----
+const S={},svg=$("#map");
+const C={L:-169.11,R:190.49,T:83.6,B:-58.5,X0:0,Y0:0,W:1000,H:0},F={x:0,y:0,w:1,h:1},V={x:0,y:0,w:1,h:1};
+const Mer=l=>Math.log(Math.tan(Math.PI/4+l*Math.PI/360));
+const proj=(lo,la)=>[C.X0+(lo-C.L)/(C.R-C.L)*C.W,C.Y0+(Mer(C.T)-Mer(la))/(Mer(C.T)-Mer(C.B))*C.H];
+const K=()=>C.W/(C.R-C.L),cs=la=>Math.cos(la*Math.PI/180);
+const pth=s=>"M"+s.split(" ").map(q=>{const[a,b]=q.split(",");return proj(+a,+b).map(v=>v.toFixed(1)).join(",")}).join("L");
+window.AmCharts=window.AmCharts||{maps:{}};
+const CDN="https://cdnjs.cloudflare.com/ajax/libs/ammaps/3.20.7/maps/js/";
+const lj=src=>new Promise(r=>{const s=document.createElement("script");s.src=src;s.onload=()=>r(1);s.onerror=()=>r(0);document.head.appendChild(s)});
+const mapData=(async()=>{for(const n of["worldHigh","worldLow"]){await lj(CDN+n+".min.js");try{const m=AmCharts.maps[n];if(m&&m.svg)return m.svg}catch(e){}}return null})();
+let built=false;
+async function build(){
+  const sv=await mapData;
+  svg.innerHTML='<g id="base"></g><g id="phys"></g><g id="ov"></g>';
+  const base=$("#base");let ds;
+  if(sv)ds=sv.g.path.map(p=>p.d);
+  else{C.H=C.W*(Mer(C.T)-Mer(C.B))/((C.R-C.L)*Math.PI/180);ds=LAND.map(p=>pth(p)+"Z")}
+  base.innerHTML=ds.map(d=>`<path d="${d}"/>`).join("");
+  if(sv){const b=base.getBBox(),d=sv.defs["amcharts:ammap"];Object.assign(C,{L:+d.leftLongitude,R:+d.rightLongitude,T:+d.topLatitude,B:+d.bottomLatitude,X0:b.x,Y0:b.y,W:b.width,H:b.height})}
+  const k=K();
+  const el=(a,id)=>a.map(([lo,la,rx,ry])=>{const[x,y]=proj(lo,la);return`<ellipse cx="${x}" cy="${y}" rx="${rx*k}" ry="${ry*k/cs(la)}" fill="${id}"/>`}).join("");
+  const gr=(id,c,m)=>`<radialGradient id="${id}"><stop offset="0" stop-color="${c}" stop-opacity=".95"/><stop offset="${m}" stop-color="${c}" stop-opacity=".75"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`;
+  $("#phys").innerHTML=`<defs>${gr("gP","#d9c06b",.6)}${gr("gD","#eedfa8",.6)}${gr("gI","#ffffff",.8)}<clipPath id="lc">${ds.map(d=>`<path d="${d}"/>`).join("")}</clipPath></defs>
+  <g clip-path="url(#lc)">${el(DE,"url(#gD)")}${el(PL,"url(#gP)")}${el(IC,"url(#gI)")}
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">${MT.map(s=>{const d=pth(s);return`<path d="${d}" stroke="#7a5230" stroke-opacity=".3" stroke-width="${k*3}"/><path d="${d}" stroke="#8d6038" stroke-opacity=".85" stroke-width="${k*1.2}"/>`}).join("")}</g></g>
+  <g class="rv" fill="none" stroke-linejoin="round">${RV.map(s=>`<path d="${pth(s)}"/>`).join("")}</g>
+  ${LK.map(([lo,la,rx,ry])=>{const[x,y]=proj(lo,la);return`<ellipse class="lk" cx="${x}" cy="${y}" rx="${rx*k}" ry="${ry*k/cs(la)}"/>`}).join("")}
+  <path d="${pth(ANT)}Z" fill="#f4f8fb" stroke="#c9d8e4" stroke-width="1" vector-effect="non-scaling-stroke"/>`;
+  $("#phys").insertAdjacentHTML("afterend",'<g id="pk"></g>');
+  $("#pk").innerHTML=[...ITEMS.filter(i=>i.k=="cim").map(i=>i.p[0]),...DEC].map(([lo,la])=>{const[x,y]=proj(lo,la);return`<path data-x="${x}" data-y="${y}" d="M0,-1L.9,.6L-.9,.6Z"/>`}).join("");
+  PKE=[...document.querySelectorAll("#pk path")];
+  F.x=C.X0;F.y=C.Y0;F.w=C.W;F.h=proj(0,-78)[1]-C.Y0;
+  svg.style.aspectRatio=F.w+"/"+F.h;svg.style.maxWidth=`calc(78vh*${F.w/F.h})`;
+  setV(F.x,F.y,F.w);built=true;
+}
+
+// ---- zoom i desplaçament ----
+function setV(x,y,w){w=Math.min(F.w,Math.max(F.w/30,w));V.w=w;V.h=w*F.h/F.w;V.x=Math.min(F.x+F.w-w,Math.max(F.x,x));V.y=Math.min(F.y+F.h-V.h,Math.max(F.y,y));svg.setAttribute("viewBox",`${V.x} ${V.y} ${V.w} ${V.h}`);const s=V.w/(svg.getBoundingClientRect().width||1000)*7;PKE.forEach(p=>p.setAttribute("transform",`translate(${p.dataset.x},${p.dataset.y}) scale(${s})`))}
+function zoomAt(cx,cy,f){const r=svg.getBoundingClientRect(),fx=(cx-r.left)/r.width,fy=(cy-r.top)/r.height,mx=V.x+fx*V.w,my=V.y+fy*V.h,w=Math.min(F.w,Math.max(F.w/30,V.w*f));setV(mx-fx*w,my-fy*w*F.h/F.w,w)}
+function zoomC(f){const r=svg.getBoundingClientRect();zoomAt(r.left+r.width/2,r.top+r.height/2,f)}
+$("#zi").onclick=()=>zoomC(.6);$("#zo").onclick=()=>zoomC(1.6);$("#zr").onclick=()=>setV(F.x,F.y,F.w);
+svg.addEventListener("wheel",e=>{e.preventDefault();zoomAt(e.clientX,e.clientY,e.deltaY>0?1.25:.8)},{passive:false});
+const P=new Map();let drag={moved:0,multi:false};
+svg.addEventListener("pointerdown",e=>{svg.setPointerCapture(e.pointerId);P.set(e.pointerId,{x:e.clientX,y:e.clientY});if(P.size==1)drag={moved:0,multi:false};else drag.multi=true});
+svg.addEventListener("pointermove",e=>{
+  const o=P.get(e.pointerId);if(!o)return;
+  const r=svg.getBoundingClientRect(),dx=e.clientX-o.x,dy=e.clientY-o.y;
+  if(P.size==1){drag.moved+=Math.abs(dx)+Math.abs(dy);if(drag.moved>=6)setV(V.x-dx*V.w/r.width,V.y-dy*V.h/r.height,V.w)}
+  else if(P.size==2){
+    const q=[...P.entries()].find(([id])=>id!==e.pointerId)[1];
+    const od=Math.hypot(o.x-q.x,o.y-q.y),nd=Math.hypot(e.clientX-q.x,e.clientY-q.y);
+    if(nd>0)zoomAt((e.clientX+q.x)/2,(e.clientY+q.y)/2,od/nd);
+  }
+  P.set(e.pointerId,{x:e.clientX,y:e.clientY});
+});
+svg.addEventListener("pointerup",e=>{const was=P.size;P.delete(e.pointerId);if(was==1&&!drag.multi&&drag.moved<6)answer(e.clientX,e.clientY)});
+svg.addEventListener("pointercancel",e=>P.delete(e.pointerId));
+
+// ---- joc ----
+function show(id){["start","game","end"].forEach(k=>$("#s-"+k).hidden=k!==id)}
+function best(){try{return +localStorage.getItem("atles-best")||0}catch(e){return 0}}
+const mu=()=>1+Math.min(2,Math.floor(S.streak/3)*.5),fm=n=>String(n).replace(".",",");
+function ui(){
+  $("#sc").textContent=S.score;$("#cb").textContent="×"+fm(mu());
+  $("#nq").textContent=Math.min(S.i,S.N)+"/"+S.N;$("#hpn").textContent=S.hp+"/5";
+  const h=$("#hp");h.style.width=S.hp/5*100+"%";h.style.background=S.hp>=3?"#22a06b":S.hp==2?"#f59e0b":"#dc2626";
+}
+async function start(){
+  const g=$("#reg").value,order=shuf(ITEMS.filter(x=>!g||x.g===g)).slice(0,NMAX);
+  Object.assign(S,{score:0,streak:0,hp:5,i:0,order,N:order.length,caught:[],right:0,locked:true});
+  show("game");
+  if(!built){$("#q").textContent="Carregant el mapa…";await build()}
+  next();
+}
+function next(){
+  if(S.i>=S.N||S.hp<=0)return end();
+  S.cur=S.order[S.i++];S.gold=Math.random()<.25;S.locked=false;
+  $("#ov").innerHTML="";setV(F.x,F.y,F.w);$("#fb").hidden=true;
+  const c=S.cur;
+  $("#q").innerHTML=`<span class="lab">Ubica al mapa${S.gold?'<span class="gold">★ BRILLANT ×2</span>':""}</span><div class="big">${c.n} <small>(${c.k})</small></div><span class="pen ${c.ink=="n"?"pn":"pb"}">Bolígraf ${c.ink=="n"?"NEGRE · terra":"BLAU · aigua"}</span>`;
+  S.t0=Date.now();clearInterval(S.tm);
+  S.tm=setInterval(()=>{$("#tb").style.width=Math.max(0,100-(Date.now()-S.t0)/100)+"%"},100);
+  ui();
+}
+function answer(cx,cy){
+  if(S.locked||!built)return;
+  const r=svg.getBoundingClientRect(),x=V.x+(cx-r.left)/r.width*V.w,y=V.y+(cy-r.top)/r.height*V.h,c=S.cur;
+  const T=c.p.map(([lo,la])=>proj(lo,la)),rpx=c.r*K()/cs(c.p[0][1]);
+  const dist=Math.min(...T.map(([a,b])=>Math.hypot(x-a,y-b))),tol=Math.max(rpx,12/(r.width/V.w)),ok=dist<=tol;
+  S.locked=true;clearInterval(S.tm);
+  const sec=(Date.now()-S.t0)/1000,ov=$("#ov"),msg=$("#msg"),rb=$("#rb"),nx=$("#nx");
+  $("#fb").hidden=false;rb.innerHTML="";nx.hidden=true;
+  ov.innerHTML=T.map(([a,b])=>`<circle class="tg" cx="${a}" cy="${b}" r="${rpx}"/>`).join("");
+  const label=()=>(S.i>=S.N||S.hp<=0)?"Veure resultat":"Següent";
+  if(ok){
+    S.streak++;S.right++;
+    const sp=sec<10?Math.round((10-sec)*5):0,pr=dist<=rpx*.5?25:0,m=mu(),g=Math.round((100+sp+pr)*m*(S.gold?2:1));
+    S.score+=g;const em=rnd(E)+(S.gold?"✨":"");S.caught.push(em);
+    let bonus="";if(S.streak%5==0&&S.hp<5){S.hp++;bonus="<br>🧭 Brúixola! +1 vida"}
+    msg.innerHTML=`<b>${rnd(OK)}</b><br>+${g} punts <small>(base 100 + velocitat ${sp} + punteria ${pr}, ratxa ×${fm(m)}${S.gold?", brillant ×2":""})</small><br>Nou cromo: ${em}${bonus}`;
+    nx.textContent=label();nx.hidden=false;
+  }else{
+    S.streak=0;S.hp--;
+    const near=dist<=tol*2.5,w=Math.max(F.w/18,rpx*9);
+    ov.insertAdjacentHTML("beforeend",`<circle cx="${x}" cy="${y}" r="${V.w/110}" fill="#dc2626" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke"/>`);
+    setV(T[0][0]-w/2,T[0][1]-w*F.h/F.w/2,w);
+    msg.innerHTML=`<b>${near?rnd(NEAR):rnd(MISS)}</b><br>−1 vida. La resposta és la zona groga (el punt vermell és el teu clic).<br><br><b>Pregunta de rebot!</b> Encerta-la i recuperes la vida (+50 punts):<br>${c.q[0]}`;
+    shuf([c.q[1],c.q[2],c.q[3]]).forEach(o=>{
+      const b=document.createElement("button");b.textContent=o;
+      b.onclick=()=>{
+        rb.querySelectorAll("button").forEach(z=>z.disabled=true);
+        if(o===c.q[1]){S.score+=50;S.hp=Math.min(5,S.hp+1);msg.innerHTML="<b>Rebot encertat!</b> +50 punts i recuperes la vida. Redimoni, quin talent amagat!"}
+        else msg.innerHTML=`<b>${rnd(RBBAD)}</b><br>La resposta era: ${c.q[1]}.`;
+        ui();nx.textContent=label();nx.hidden=false;
+      };
+      rb.appendChild(b);
+    });
+  }
+  ui();
+}
+function end(){
+  clearInterval(S.tm);
+  const n=S.right,b=best(),rec=S.score>b,f=n/S.N;
+  if(rec){try{localStorage.setItem("atles-best",S.score)}catch(e){}}
+  const rank=f>=.9?"Mestre de la Geografia 🏆":f>=.65?"Explorador d’elit 🧭":f>=.4?"Navegant amb brúixola ⛵":f>=.15?"Grumet en pràctiques 🪢":"Passatger perdut (el GPS et troba a faltar) 🗺️";
+  $("#s-end").innerHTML=`<p class="big">${S.hp<=0?"T’has quedat sense vides!":"Partida acabada!"}</p>
+  <p>Punts: <b>${S.score}</b>${rec?" — 🎉 nou rècord!":""}</p>
+  <p>Encerts: <b>${n}</b> de ${S.N}</p>
+  <p>Rang: <b>${rank}</b></p>
+  <p>Cromos de l’atles:</p><div class="cap">${S.caught.join(" ")||"cap… (ni un! L’atles es posa a riure)"}</div>
+  <button id="again">Tornar-hi</button>`;
+  $("#again").onclick=()=>{show("start");$("#best").textContent="Rècord: "+best()+" punts"};show("end");
+}
+$("#go").onclick=start;$("#nx").onclick=next;
+$("#best").textContent=best()?"Rècord: "+best()+" punts":"";
+</script>
+</body>
+</html>
